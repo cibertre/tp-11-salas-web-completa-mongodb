@@ -1,0 +1,149 @@
+
+<section class="panel-formulario">
+    <p class="etiqueta">EDICIÓN</p>
+
+    <h1><%= titulo %></h1>
+
+    <% if (error) { %>
+        <div class="alerta" role="alert">
+            <p><%= error %></p>
+        </div>
+    <% } %>
+
+    <form
+        class="formulario"
+        action="/reservas/<%= id %>/editar"
+        method="POST"
+    >
+        <div class="campo">
+            <label for="estudiante">Estudiante</label>
+            <input
+                type="text"
+                id="estudiante"
+                name="estudiante"
+                value="<%= valores.estudiante || '' %>"
+                required
+            />
+        </div>
+
+        <div class="campo">
+            <label for="email">Email</label>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                value="<%= valores.email || '' %>"
+                required
+            />
+        </div>
+
+        <div class="campo">
+            <label for="sala">Sala de estudio</label>
+            <select id="sala" name="sala" required>
+                <option
+                    value=""
+                    disabled
+                    <%= !valores.sala ? "selected" : "" %>
+                >
+                    Elegí una sala
+                </option>
+
+                <% salas.forEach((sala) => { %>
+                    <option
+                        value="<%= sala %>"
+                        <%= valores.sala === sala ? "selected" : "" %>
+                    >
+                        <%= sala %>
+                    </option>
+                <% }); %>
+            </select>
+        </div>
+
+        <div class="campo">
+            <label for="fecha">Fecha</label>
+            <input
+                type="date"
+                id="fecha"
+                name="fecha"
+                value="<%= valores.fecha || '' %>"
+                required
+            />
+        </div>
+
+        <div class="campo">
+            <label for="turno">Turno</label>
+            <select id="turno" name="turno" required>
+                <option
+                    value=""
+                    disabled
+                    <%= !valores.turno ? "selected" : "" %>
+                >
+                    Elegí un turno
+                </option>
+
+                <% turnos.forEach((turno) => { %>
+                    <option
+                        value="<%= turno %>"
+                        <%= valores.turno === turno ? "selected" : "" %>
+                    >
+                        <%= turno %>
+                    </option>
+                <% }); %>
+            </select>
+        </div>
+
+        <div class="campo">
+            <label for="personas">Personas</label>
+            <input
+                type="number"
+                id="personas"
+                name="personas"
+                min="1"
+                max="6"
+                value="<%= valores.personas || '' %>"
+                required
+            />
+        </div>
+
+        <div class="campo">
+            <label for="estado">Estado</label>
+            <select id="estado" name="estado" required>
+                <option
+                    value=""
+                    disabled
+                    <%= !valores.estado ? "selected" : "" %>
+                >
+                    Elegí un estado
+                </option>
+
+                <option
+                    value="pendiente"
+                    <%= valores.estado === "pendiente" ? "selected" : "" %>
+                >
+                    Pendiente
+                </option>
+
+                <option
+                    value="confirmada"
+                    <%= valores.estado === "confirmada" ? "selected" : "" %>
+                >
+                    Confirmada
+                </option>
+            </select>
+        </div>
+
+        <button type="submit" class="boton">
+            Guardar cambios
+        </button>
+
+        <a href="/reservas/<%= id %>">
+            Cancelar y volver al detalle
+        </a>
+    </form>
+</section>
+
+
+
+ 
+
+   

@@ -1,0 +1,26 @@
+const express = require("express");
+
+const {
+  prepararAreaReservas,
+  validarReserva,
+} = require("../middlewares/reservas");
+function crearRouterReservas(
+  controladorReservas,
+  salasPermitidas,
+  turnosPermitidos,
+) {
+  const router = express.Router();
+  router.use(prepararAreaReservas);
+  router.get("/", controladorReservas.listar);
+  router.get("/nueva", controladorReservas.mostrarFormulario);
+  router.get("/:id/editar", controladorReservas.mostrarEdicion);
+  router.post("/:id/editar", controladorReservas.guardarEdicion);
+  router.get("/:id", controladorReservas.mostrarDetalle);
+  router.post(
+    "/",
+    validarReserva(salasPermitidas, turnosPermitidos),
+    controladorReservas.crear,
+  );
+  return router;
+}
+module.exports = { crearRouterReservas };
